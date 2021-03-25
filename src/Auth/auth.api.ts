@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig  } from 'axios';
 
 
 
-
+const API_BASE_URL = axios.post('http://localhost:3000/')
 
 
 export interface Credentials{
@@ -19,7 +19,7 @@ interface LoginApiResponse {
     username: string;
   }
 
-  const API_BASE_URL = 'http://localhost:3000/'
+
   
 interface LoginResponse  {
     error?: string
@@ -33,7 +33,7 @@ interface LoginResponse  {
 export const onLogin = async (data: Credentials) => {
     const requestConfig: AxiosRequestConfig = {
         method: 'post',
-        url: API_BASE_URL + '/login',
+        url: API_BASE_URL +  'login',
         data
     }
 
@@ -51,7 +51,7 @@ export const onLogin = async (data: Credentials) => {
 export const onRegister = async(data: Credentials) => {
     const requestConfig: AxiosRequestConfig ={
         method:'post',
-        url: API_BASE_URL  + '/register',
+        url: API_BASE_URL + 'register',
         data
     }
 

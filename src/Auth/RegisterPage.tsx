@@ -48,7 +48,7 @@ const RegisterPage = () => {
                 repeatPassword
             })} />
             <label htmlFor="email">Email</label>
-            <input value={repeatPassword} name="email" type="email" onChange={(event) => setRegisterData({
+            <input value={email} name="email" type="email" onChange={(event) => setRegisterData({
                 username,
                 password,
                 repeatPassword,
