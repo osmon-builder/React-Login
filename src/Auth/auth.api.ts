@@ -1,23 +1,46 @@
-import Axios, { AxiosRequestConfig  } from 'axios';
+
+import axios, { AxiosRequestConfig  } from 'axios';
+
+
+
+
 
 
 export interface Credentials{
     username: string;
     password: string;
+    email: string;
 }
+
+interface LoginApiResponse {
+    created: string;
+    id: string;
+    token: string;
+    username: string;
+  }
+
+  const API_BASE_URL = 'http://localhost:3000/'
+  
+interface LoginResponse  {
+    error?: string
+    token?: string;
+  }
+
+
 
 
 
 export const onLogin = async (data: Credentials) => {
     const requestConfig: AxiosRequestConfig = {
         method: 'post',
-        url: process.env.REACT_APP_API_BASE_URL + '/login',
+        url: API_BASE_URL + '/login',
         data
     }
 
 
     try {
-    const {data: response} = await Axios.request(requestConfig);
+    const {data: response} = await axios.request<LoginApiResponse>(requestConfig);  
+    storeToken(response.token);
     
     }catch (e) {
         console.error(e);
@@ -28,18 +51,21 @@ export const onLogin = async (data: Credentials) => {
 export const onRegister = async(data: Credentials) => {
     const requestConfig: AxiosRequestConfig ={
         method:'post',
-        url: process.env.REACT_APP_API_BASE_URL + '/register',
+        url: API_BASE_URL  + '/register',
         data
     }
 
     try{
-
+        const {data: response} = await axios.request(requestConfig)  
     }catch (e){
         console.error(e.response);
         return {error: e.response.data.message};
         }
-        
-
-    const {data:response} =await Axios.request( requestConfig);
-    console.log(response);
 }   
+
+
+export const BOUNCE_IT_TOKEN_KEY = 'bounce_it_token_key';
+
+const storeToken = (token : string) =>{
+    localStorage.setItem(BOUNCE_IT_TOKEN_KEY, token);
+}
